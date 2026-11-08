@@ -1,48 +1,68 @@
 # Last Light — Tower Defense
 
-A local, browser based React tower defense game. The project runs entirely in the browser after install; it does not need a game server, account, database, or API. External Google Fonts are not used: the interface uses system font fallbacks so the game remains playable offline.
+A browser-based tower defense game built with React and Vite. Defend the house from waves of rakshasa using six turret types, upgrades, home reinforcements, and support buildings. The game runs locally in the browser; it does not require a game server, account, database, or API.
+
+## Features
+
+- **Campaign:** 10 levels with five rounds each (50 rounds total). Enemy waves grow in size and durability; boss rounds appear in levels 5–10.
+- **Six weapons:** Sentinel, Gatling, Cryo, Railgun, Mortar, and Cataclysm. Unlock weapons and build turrets between rounds.
+- **Build and upgrade:** Place turrets beside the road, improve their damage and range, or sell them for a partial refund.
+- **Protect the objective:** Reinforce the house and build Watch Houses for repairs or Supply Houses for extra level-clear credits.
+- **Guided demo:** A first-launch welcome card offers a click-by-click tutorial or direct play. The best level reached is saved in this browser.
+- **Performance stress test:** Load a stress scene with 5,000 enemies, 100 towers, and up to 1,000 active projectiles. Use the in-game telemetry to observe performance on your device.
 
 ## Run locally
 
-1. Install Node.js 20 or newer.
-2. From this folder run `npm install`.
-3. Run `npm run dev` and open the local URL Vite prints.
-4. Run `npm run build` to create the static site in `dist/`.
+Requirements: Node.js 20 or newer and npm.
 
-## Publish later with GitHub and Firebase
+```bash
+npm install
+npm run dev
+```
 
-Commit this project (including `package-lock.json`, excluding `node_modules/` and `dist/`) to your GitHub repository. To publish with Firebase Hosting, install the Firebase CLI and run `firebase login`, then `firebase init hosting`. Select your Firebase project, set the public directory to `dist`, and enable single-page app rewrites. Build with `npm run build`, then run `firebase deploy --only hosting`. Firebase's Hosting setup can also connect to the GitHub repository to build and publish on each push; use `npm ci` and `npm run build` as the build commands and `dist` as the output directory.
+Open the local URL printed by Vite. To create and preview a production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+The static production files are written to `dist/`.
 
 ## How to play
 
-The welcome card offers a guided demo or direct play. Sentinel is available at the start. Between levels, open Weapon Shop to buy a blueprint, reinforce the destination house, or build a Watch House or Supply House. Buying a gun blueprint adds its card to Defense Systems; building the turret costs additional credits. Turrets fire automatically and upgrades improve their damage, range, and reload time. Kills pay credits automatically. Click Begin Defense to start the first round; every later round starts automatically after a 1.5-second completion card. Level 3 uses two enemy lanes; level 5 onward uses three. The campaign has 10 levels containing 50 rounds, a cave entrance, paved U-turn route, and destination house. Space pauses; speed cycles 1×, 1.5×, and 2×. The best level is saved in this browser. Read [HOW_TO_PLAY.md](HOW_TO_PLAY.md) for the full guide. Performance Stress Test creates a fixed scene with 5,000 enemies, 100 towers, and 1,000 projectiles.
+1. Select **Take the guided demo** or **Start playing** on the welcome card. You begin with 330 credits and the Sentinel available.
+2. Select a gun card in **Defense Systems**, then click a clear spot beside the road to place it. Turrets aim and fire automatically.
+3. Click **BEGIN DEFENSE** to launch the first round. Earn credits by defeating enemies and clearing levels.
+4. Between rounds, open **Weapon Shop** to unlock weapons, reinforce the house, or build support houses. Select a placed turret to upgrade or sell it.
+5. Keep the house standing through all 50 rounds to win. Enemies that reach it damage its integrity.
 
-## Design decisions
+Pause/resume with the on-screen control or **Space**. The speed control cycles through 1×, 1.5×, and 2×. See [HOW_TO_PLAY.md](HOW_TO_PLAY.md) for weapon prices, enemy details, controls, and strategy.
 
-- **Framework and packaging:** React provides the HUD, shop, onboarding, and controls; Vite builds a static bundle. Three.js is bundled locally, so runtime play needs no account, game server, CDN, or external asset service.
-- **Rendering and camera:** One WebGL canvas renders the whole map from a fixed orthographic camera pitched at 45 degrees. The camera does not pan or zoom. The ground, paved road, shoulders, lane markings, cave, house, support buildings, scenery, guns, projectiles, and enemies are 3D meshes. Catmull-Rom smoothing shapes a broad, snake-like road with alternating natural turns between the cave at the left edge and the house at the opposite edge, without crossings.
-- **Animated assets:** Low-poly rakshasa figures are procedurally assembled from mesh geometry, with four baked walk poses. Enemy archetypes have distinct colors and scale silhouettes. Mechanical turrets track targets and weapons fire type-colored projectiles. Four shared pose batches draw the enemy crowd, six batches draw weapon types, and projectile batches draw the shots; camera-frustum checks skip off-screen enemies/projectiles. A selected-tower range ring stays separate so selection remains clear.
-- **Shop and inventory:** Sentinel is initially owned. The Weapon Shop sells one-run gun unlocks between rounds. The displayed total includes the blueprint and the first turret; the purchase is enabled only when both can be afforded. A successful purchase adds the gun card to Defense Systems and enters placement mode. Later copies cost only the listed build price. Shop and defense cards use the same gun names. The shop is disabled during an active round. A 1.5-second round report precedes each automatic next round; opening the shop during that break holds the countdown. The six guns range from the low-cost, quick Gatling to the expensive Cataclysm with high damage, broad reach, splash, and slow volleys. Every placed gun can be upgraded to level 4 for higher damage, more range, and a slightly faster firing rate, or sold for a partial refund. Reinforcing the house adds integrity and breach protection; Watch Houses restore integrity and Supply Houses increase round rewards. Restart restores the initial Sentinel-only inventory.
-- **State ownership:** The simulation state lives in a mutable object held by a React ref. A single `requestAnimationFrame` loop updates and draws it. React receives a telemetry snapshot twice per second and on player actions, rather than rendering every entity on every frame.
-- **Time step:** Movement uses elapsed frame time, clamped to 50 ms, and is independent of display refresh rate. The pause and speed controls adjust the shared simulation clock; there is no timer or loop per entity.
-- **Path and targeting:** A shared set of normalized path waypoints scales to the battlefield. Enemies move segment by segment in one, two, or three parallel lanes as levels progress. A 120-pixel uniform grid narrows tower candidate searches to nearby buckets; target progress breaks ties toward enemies further along the path.
-- **Projectiles:** Projectiles keep a direct reference to their target, avoiding a per-shot scan or lookup in the common path. Arrays are compacted in place; shot and effect objects are reused from bounded pools. The simulation uses one animation loop, never a timer per entity.
-- **Content and balance:** There are 10 levels with five rounds each; wave size and enemy durability increase over time. Difficulty rises sharply from level 7. Sentinel is initially available; Gatling, Cryo, Railgun, Mortar, and Cataclysm artillery can be unlocked in the shop. They provide quick short-range fire, slowing, long-range heavy hits, and increasing degrees of splash damage and reach. Rakshasa scouts, brutes, runners, and shield units vary speed, durability, and home damage. Enemies move in two lanes at level 3 and three lanes from level 5. Each level from 5 onward ends with a boss round; level 10 is the campaign victory.
-- **Feedback and input:** The HUD shows core health, credits, kills, score, wave, enemy/tower/projectile counts, and measured frame rate. Every normal-wave enemy has a small green health line that shortens as it takes damage; no numeric value is shown over the character. Placement previews, range circles, impact rings, status labels, end-state overlays, keyboard shortcuts, and responsive layouts make actions visible.
-- **First-use help:** A one-time browser welcome card offers a guided demo or direct play. The Guide Demo resets to a practice run and advances through action-gated steps. It highlights one control, blocks unrelated clicks, explains rejected placements, and advances only after the expected action succeeds. `HOW_TO_PLAY.md` explains the entire screen, rules, strategies, and which requirements have or have not been verified.
-- **Visual style:** A fixed 45-degree camera shows the full battlefield, from spooky cave to protected house. Low-poly procedural scenery keeps the road, lanes, U-turn, and destination readable while retaining walking characters.
-- **Performance stress scene:** The in-game stress action creates and actively updates 5,000 enemies, 100 firing towers, and 1,000 moving projectiles. Defeated or leaked stress enemies respawn so the counts stay stable. It is intended to exercise rendering and simulation together, not only draw a static crowd.
+## Weapons
 
-## Bottlenecks and tradeoffs
+| Weapon | Unlock | Build | Specialty |
+|---|---:|---:|---|
+| Sentinel | Available at start | 90 CR | Balanced starter turret |
+| Gatling | 120 CR | 175 CR | Rapid fire at close range |
+| Cryo | 175 CR | 250 CR | Slows enemies |
+| Railgun | 350 CR | 480 CR | Heavy hits and long range |
+| Mortar | 500 CR | 650 CR | Splash damage |
+| Cataclysm | 720 CR | 880 CR | Highest damage and widest range |
 
-The main costs are moving 5,000 enemies, finding targets, writing instance transforms and colors, and submitting draw calls. A uniform spatial grid bounds the usual tower-search area. Direct writes update only active instance-matrix ranges; fixed-capacity batches avoid oversized mostly-empty GPU buffers; weapon types share instanced batches instead of issuing a multi-part draw for every tower. The stress scene lowers WebGL pixel ratio to 0.58 to keep its dense view responsive, while ordinary play uses full pixel ratio. Enemy and projectile instances outside the camera frustum are not submitted. Enemy health bars are disabled only in the 5,000-enemy stress scene; normal waves draw a small green health line above each visible enemy on a separate pointer-transparent overlay. These choices keep normal gameplay crisp while reducing stress-scene CPU, upload, and fill costs. Dense grid buckets and older or software-rendered GPUs remain important worst cases.
+Unlocking a weapon and buying its first turret are separate costs. The shop displays their combined price for the first purchase; additional turrets cost the build price.
 
-Memory use is bounded by active arrays, fixed-capacity instanced batches, and short-lived effects. Completed enemies, expired effects, and resolved shots are removed or pooled. `nextId` grows as a number during a session but does not retain old entities. The stress fixture deliberately keeps its population constant; this checks stable active counts, not heap growth across the entire 50-wave campaign. A multi-run heap profile is still needed to confirm long-run memory stability on a target device.
+## Project structure
 
-## Measuring performance
+- `src/App.jsx` — React interface, canvas rendering, controls, tutorial, and telemetry.
+- `src/game.js` — Campaign state, waves, enemies, targeting, weapons, and shop actions.
+- `src/scene3d.js` — Three.js scene module.
+- `src/style.css`, `src/guide.css` — Application and tutorial styles.
+- `HOW_TO_PLAY.md` — Detailed player guide.
+- `NUMBERS.md` — Recorded local performance sample and measurement notes.
 
-Select **Performance Stress Test**, allow the scene to settle, and read its rolling FPS plus the 300-frame shares over 22.2 ms and 33 ms. The 22.2 ms threshold approximates the 45 FPS target; the 33 ms threshold records the separate slow-frame constraint. Browser/device, viewport, and GPU affect results, so repeat at the same settings and capture a longer Performance trace for formal benchmarking. For long-run memory stability, compare heap snapshots at the beginning and after a full 50-wave campaign. The rolling HUD values are useful for live checks, not a substitute for a complete browser trace.
+The current `App.jsx` renders the battlefield with a 2D canvas. Performance depends on browser, device, and viewport; the stress test is an observation tool, not a guarantee of a particular frame rate. The measurements in `NUMBERS.md` are local samples and should not be treated as deployment benchmarks.
 
-`NUMBERS.md` records a local before/after browser sample, including its limitations. The sample is not a substitute for measurements on the eventual deployment hardware. The requested online deployment and screen-recorded demo are intentionally outside this implementation pass.
+## Build and deployment
 
-
+The Vite build produces a static site in `dist/`, which can be hosted by any static web host. For Firebase Hosting, configure Hosting for this project and set the public directory to `dist`; use a single-page-app rewrite to `/index.html` if required by your hosting setup. Do not commit `node_modules/` or generated `dist/` files. Keep `package-lock.json` in the repository for reproducible installs.

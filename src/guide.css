@@ -13,3 +13,21 @@
 .level-overlay{position:absolute;inset:0;z-index:7;display:grid;place-items:center;background:rgba(5,11,12,.52);pointer-events:none;animation:level-in .24s ease-out}.level-card{width:min(390px,calc(100% - 28px));padding:22px 24px;text-align:center;color:#eef5ef;background:linear-gradient(145deg,#17251f,#111a1d);border:1px solid #71c89e88;border-radius:12px;box-shadow:0 18px 60px #0009}.level-card h2{font:600 25px var(--display);margin:9px 0}.level-card p{font-size:11px;color:#b0c1b5;margin:0 0 12px}.level-card small{font:9px var(--mono);letter-spacing:.08em;color:#80deb3;text-transform:uppercase}@keyframes level-in{from{opacity:0}to{opacity:1}}
 .placement-hint.error{white-space:normal;max-width:calc(100% - 24px);text-align:center;border-color:#a86a58;color:#ffe0d5;background:#261412ee}
 .enemy-readouts{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}.map-label,.map-home,.placement-hint{z-index:3}.placement-hint.error{white-space:normal;max-width:calc(100% - 24px);text-align:center;border-color:#a86a58;color:#ffe0d5;background:#261412ee}.end-overlay{z-index:7}.paused-overlay{z-index:6}
+
+.field-guide-note{display:block;margin:-6px 0 11px;color:#778780;font:7px var(--mono);letter-spacing:.35px}
+.enemy-guide .enemy-guide-card{display:block;margin:0 0 8px;padding:9px;border:1px solid #29363a;border-radius:6px;background:#10171d}
+.enemy-guide-heading{display:flex;align-items:center;gap:8px}
+.enemy-guide-heading>.enemy-dot{width:9px;height:9px;flex:none;margin:0;border:1px solid #ffffff55}
+.enemy-guide-heading>span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.enemy-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:8px;padding-top:7px;border-top:1px solid #263237}
+.enemy-stats>span{display:flex;flex-direction:column;gap:2px}
+.enemy-guide .enemy-stats small{font:7px var(--mono);color:#788782}
+.enemy-guide .enemy-stats b{font:600 9px var(--mono);color:#d2ddd7}
+.field-upgrade-bar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px;padding:11px;border:1px solid #29363a;border-radius:7px;background:#10171d}
+.field-upgrade-bar>div{grid-column:1/-1;min-width:0;margin:0;padding-bottom:7px;border-bottom:1px solid #29363a}
+.field-upgrade-bar button{width:100%;justify-content:center;padding:0 5px}
+.enemy-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;color:#8b999b;font-size:9px}
+.enemy-legend-item{display:flex;align-items:center;gap:4px}
+.enemy-legend-item .enemy-dot{width:7px;height:7px;margin:0}
+@media(max-width:1180px){.right-rail{display:flex;grid-column:1/-1}}
+@media(max-width:780px){.right-rail{order:2}}

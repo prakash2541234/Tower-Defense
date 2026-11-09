@@ -1,13 +1,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { PATH, TYPES } from './game.js';
-
-const CREATURES = {
-  scout: { body:'#657447', armor:'#a79760', horn:'#dbc087' },
-  brute: { body:'#883f37', armor:'#ce7752', horn:'#e7b377' },
-  runner: { body:'#855340', armor:'#d09a55', horn:'#f0cc83' },
-  shield: { body:'#454c79', armor:'#9a8fc0', horn:'#d8c1e9' },
-};
+import { PATH, TYPES, CREATURES } from './game.js';
 const WEAPON_COLORS = { pulse:'#75e6c0', rail:'#a998ff', frost:'#65c8f2', gatling:'#f4c96b', mortar:'#f28d76', artillery:'#ff806d' };
 const UP = new THREE.Vector3(0, 1, 0);
 const MAP_PLANE = new THREE.Plane(UP, 0);

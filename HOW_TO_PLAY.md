@@ -13,7 +13,7 @@ A welcome card appears the first time. Choose **Take the guided demo** for the c
 ## Start a campaign
 
 1. **Prepare before the first wave.** You start with 330 credits and the Sentinel gun. Open **Weapon Shop** to unlock a gun, reinforce the home, or build support houses. The shop is only available between rounds. During the 1.5-second round report, opening the shop pauses the countdown.
-2. **Buy and place a new gun.** The Shop shows the combined total for its blueprint and first turret. When you can afford it, click **BUY**; the gun is added to **Defense Systems** and placement mode starts. Click open ground beside the road to place it. Later copies cost only the build price shown on the gun card.
+2. **Buy and place a new gun.** The Shop shows the combined total for its blueprint and first turret. When you can afford it, click **BUY**; the gun is added to **Defense Systems** and placement mode starts. Click open ground beside the road to place it. Later copies cost only the build price shown on the gun card. Each gun type can be placed up to three times; the shop shows **STOCK COMPLETE** after the third copy.
 3. **Place it beside the road.** Choose a Defense Systems card, then click open ground near a bend or straight stretch. Roadside placement is rejected if it overlaps the road or another turret base. Firing ranges may overlap. Press Escape to cancel placement.
 4. **Start level 1.** Click **BEGIN DEFENSE**. The first level starts when you choose; after each cleared level, a report appears for 1.5 seconds and the next level starts automatically.
 5. **Let the guns defend.** Turrets find targets and fire without further clicks. Earn credits automatically for every enemy defeated. Clearing a level also pays a bonus.
@@ -22,7 +22,7 @@ A welcome card appears the first time. Choose **Take the guided demo** for the c
 
 ## The six guns
 
-Each gun has a one-time blueprint unlock price and a separate price for each turret placed. Higher priced guns hit harder or cover a wider area, and reload more slowly. Lower priced guns are easier to afford and fire faster or at a normal pace. You can upgrade each deployed gun to level 4: upgrades increase damage and range, and shorten its reload time a little. Higher levels cost more.
+Each gun has a one-time blueprint unlock price and a separate price for each turret placed. Higher priced guns hit harder or cover a wider area, and reload more slowly. Lower priced guns are easier to afford and fire faster or at a normal pace. You can upgrade each deployed gun twice, up to level 3: upgrades increase damage and range, and shorten its reload time a little. Higher levels cost more.
 
 | Gun | Blueprint | Build | Role |
 |---|---:|---:|---|
@@ -56,7 +56,8 @@ These buildings appear around the destination house and change the strategy by i
 - **BEGIN DEFENSE:** starts the first level. Later levels start on their own after the completion report.
 - **Pause / Resume:** freeze or continue the battle. Press **Space** to toggle pause.
 - **Speed:** cycle between 1×, 1.5×, and 2× simulation speed.
-- **Restart arrow:** reset the campaign, including blueprint unlocks. The best level reached remains saved in this browser.
+- **Restart arrow:** clear the current battle and restore home integrity while preserving your credits, guns, upgrades, and settlement progress. The best level reached remains saved in this browser.
+- **End of game:** after a win or defeat, choose **END GAME** or **RESTART GAME**. Both clear the current battle and restore home integrity only; credits, guns, upgrades, house improvements, score, and kills remain available.
 - **Performance Stress Test:** replace the campaign with a fixed performance fixture. Restart to return to a fresh game.
 
 The top cards show home integrity, credits, defeated enemies, and score. The wave badge shows campaign progress. The battlefield status and telemetry show active enemy, tower, and projectile counts plus a rolling FPS estimate.
@@ -82,5 +83,3 @@ Start with Sentinel guns around early bends. Spend credits earned from kills and
 ## What has and has not been verified
 
 The game includes 10 levels and 50 rounds, six gun types, four enemy types, automatic attacks, placement and upgrades, selling, the house shop, score, victory/game-over states, pause, restart, speed, and an active stress fixture with 5,000 enemies, 100 guns, and 1,000 projectiles. In the local browser sample before the final road waypoint revision, the warmed-up 300-frame reading showed 56 FPS, with 4.3% of frames slower than 45 FPS and 4.3% over 33 ms. These numbers depend on the browser and device; retest the final route shape for an exact reading. Accelerated simulation reached the 50th-round victory state; a complete browser heap/memory profile has not been run, so long-run memory stability remains unverified. See `README.md` and `NUMBERS.md` for the design and measurement details.
-
-

@@ -4,9 +4,9 @@ A browser-based tower defense game built with React and Vite. Defend the house f
 
 ## Features
 
-- **Campaign:** 10 levels with five rounds each (50 rounds total). Enemy waves grow in size and durability; boss rounds appear in levels 5–10.
-- **Six weapons:** Sentinel, Gatling, Cryo, Railgun, Mortar, and Cataclysm. Unlock weapons and build turrets between rounds.
-- **Build and upgrade:** Place turrets beside the road, improve their damage and range, or sell them for a partial refund.
+- **Campaign:** 10 levels with five rounds each (50 rounds total). Enemy waves grow from 16–20 per round in Level 1 to 88–93 in Level 10; boss rounds appear in levels 5–10.
+- **Six weapons:** Sentinel, Gatling, Cryo, Railgun, Mortar, and Cataclysm. Unlock weapons and build turrets between rounds; each type has a limit of three placed copies.
+- **Build and upgrade:** Place turrets beside the road, upgrade each turret twice (up to level 3), or sell it for a partial refund.
 - **Protect the objective:** Reinforce the house and build Watch Houses for repairs or Supply Houses for extra level-clear credits.
 - **Guided demo:** A first-launch welcome card offers a click-by-click tutorial or direct play. The best level reached is saved in this browser.
 - **Performance stress test:** Load a stress scene with 5,000 enemies, 100 towers, and up to 1,000 active projectiles. Use the in-game telemetry to observe performance on your device.
@@ -35,7 +35,7 @@ The static production files are written to `dist/`.
 2. Select a gun card in **Defense Systems**, then click a clear spot beside the road to place it. Turrets aim and fire automatically.
 3. Click **BEGIN DEFENSE** to launch the first round. Earn credits by defeating enemies and clearing levels.
 4. Between rounds, open **Weapon Shop** to unlock weapons, reinforce the house, or build support houses. Select a placed turret to upgrade or sell it.
-5. Keep the house standing through all 50 rounds to win. Enemies that reach it damage its integrity.
+5. Keep the house standing through all 50 rounds to win. Enemies that reach it damage its integrity. After a win or defeat, choose **END GAME** or **RESTART GAME**; restarting a round preserves credits, weapons, upgrades, buildings, score, and kills while restoring home integrity.
 
 Pause/resume with the on-screen control or **Space**. The speed control cycles through 1×, 1.5×, and 2×. See [HOW_TO_PLAY.md](HOW_TO_PLAY.md) for weapon prices, enemy details, controls, and strategy.
 
@@ -50,7 +50,7 @@ Pause/resume with the on-screen control or **Space**. The speed control cycles t
 | Mortar | 500 CR | 650 CR | Splash damage |
 | Cataclysm | 720 CR | 880 CR | Highest damage and widest range |
 
-Unlocking a weapon and buying its first turret are separate costs. The shop displays their combined price for the first purchase; additional turrets cost the build price.
+Unlocking a weapon and buying its first turret are separate costs. The shop displays their combined price for the first purchase; additional turrets cost the build price, up to three copies of each type. Each turret can be upgraded twice, to level 3.
 
 ## Project structure
 

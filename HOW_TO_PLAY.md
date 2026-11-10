@@ -58,7 +58,7 @@ These buildings appear around the destination house and change the strategy by i
 - **Speed:** cycle between 1×, 1.5×, and 2× simulation speed.
 - **Restart arrow:** clear the current battle and restore home integrity while preserving your credits, guns, upgrades, and settlement progress. The best level reached remains saved in this browser.
 - **End of game:** after a win or defeat, choose **END GAME** or **RESTART GAME**. Both clear the current battle and restore home integrity only; credits, guns, upgrades, house improvements, score, and kills remain available.
-- **Performance Stress Test:** replace the campaign with a fixed performance fixture. Restart to return to a fresh game.
+- **Performance Stress Test:** temporarily switches to a fixed performance fixture. Restart exits the test and returns to your saved in-memory campaign state, without keeping the test's towers, enemies, or credits.
 
 The top cards show home integrity, credits, defeated enemies, and score. The wave badge shows campaign progress. The battlefield status and telemetry show active enemy, tower, and projectile counts plus a rolling FPS estimate.
 
